@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  :root {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-mono: 'Courier New', monospace;
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f4f1;
+    --color-background-tertiary: #eeece8;
+    --color-text-primary: #1a1916;
+    --color-text-secondary: #6b6860;
+    --color-text-tertiary: #9c9a94;
+    --color-border-tertiary: rgba(0,0,0,0.12);
+    --color-border-secondary: rgba(0,0,0,0.22);
+    --color-border-primary: rgba(0,0,0,0.35);
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 12px; background: #fff; font-family: var(--font-sans); }
+</style>
+
+<style>
+* { box-sizing: border-box; }
+.wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
+.toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
+.toolbar-left { display: flex; align-items: center; gap: 8px; }
+.ds-label { font-size: 12px; color: var(--color-text-tertiary); }
+.reveal-btn { font-size: 13px; cursor: pointer; background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 14px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 6px; }
+.reveal-btn:hover { background: var(--color-background-secondary); }
+.table-wrap { overflow-x: auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--color-background-secondary); }
+th { padding: 10px 12px; text-align: left; font-weight: 500; color: var(--color-text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+td { padding: 9px 12px; color: var(--color-text-primary); border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--color-background-secondary); }
+.error-highlight td { background: #FAEEDA !important; }
+.error-cell { color: #854F0B !important; font-weight: 500; }
+.answers { margin-top: 1.25rem; display: none; gap: 10px; flex-direction: column; }
+.answers.open { display: flex; }
+.answer-card { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; display: flex; gap: 12px; align-items: flex-start; }
+.answer-row-badge { font-size: 11px; font-weight: 500; background: #FAEEDA; color: #854F0B; border-radius: 20px; padding: 2px 10px; white-space: nowrap; margin-top: 1px; }
+.answer-text { color: var(--color-text-secondary); line-height: 1.6; }
+.answer-text strong { color: var(--color-text-primary); font-weight: 500; }
+</style>
+
+<h2 class="sr-only">People operations employee data — 10 rows with hidden mistakes to spot.</h2>
+
+<div class="wrap">
+  <div class="toolbar">
+    <span class="ds-label">10 employee records · spot the mistakes</span>
+    <button class="reveal-btn" id="rev-btn" onclick="toggleReveal()">
+      <i class="ti ti-eye" aria-hidden="true"></i> Reveal answers
+    </button>
+  </div>
+
+  <div class="table-wrap">
+    <table id="emp-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Full name</th>
+          <th>Employee ID</th>
+          <th>Job title</th>
+          <th>Department</th>
+          <th>Start date</th>
+          <th>Salary (USD)</th>
+          <th>FTE</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="answers" id="answers">
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 3</span>
+      <span class="answer-text"><strong>Salary outlier</strong> — James Okonkwo's salary is $6,800. Likely a missing zero; should be $68,000. Classic data entry drop.</span>
+    </div>
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 7</span>
+      <span class="answer-text"><strong>Impossible date</strong> — February 30 doesn't exist. Common when dates are typed as free text rather than selected from a date picker.</span>
+    </div>
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 10</span>
+      <span class="answer-text"><strong>Duplicate + inconsistent casing</strong> — Lena Brandt appears in rows 4 and 10 with different Employee IDs. Job title casing also differs: "People Analytics Lead" vs "People analytics lead".</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const rows = [
+  [1, "Ahmed Khalil",     "EMP-1041", "HR Business Partner",           "HR",     "2019-03-11", "$72,000", "1.0", "Cairo",     false],
+  [2, "Sara Mostafa",     "EMP-1042", "Talent Acquisition Specialist", "HR",     "2021-07-01", "$58,500", "1.0", "Cairo",     false],
+  [3, "James Okonkwo",    "EMP-1043", "Compensation Analyst",          "HR",     "2020-01-15", "$6,800",  "1.0", "Lagos",     true],
+  [4, "Lena Brandt",      "EMP-1044", "People Analytics Lead",         "HR",     "2018-09-03", "$91,000", "1.0", "Berlin",    false],
+  [5, "Maria Santos",     "EMP-1045", "L&D Coordinator",               "HR",     "2022-04-18", "$54,000", "0.5", "Lisbon",    false],
+  [6, "Tom Nguyen",       "EMP-1046", "HR Generalist",                 "HR",     "2023-11-29", "$61,200", "1.0", "Toronto",   false],
+  [7, "Aisha Diallo",     "EMP-1047", "Recruiter",                     "Talent", "2024-02-30", "$55,000", "1.0", "Dakar",     true],
+  [8, "Chen Wei",         "EMP-1048", "HRIS Analyst",                  "HR",     "2017-06-12", "$79,000", "1.0", "Singapore", false],
+  [9, "Fatima Al-Rashid", "EMP-1049", "HR Business Partner",           "HR",     "2021-09-01", "$74,500", "1.0", "Dubai",     false],
+  [10,"Lena Brandt",      "EMP-1050", "People analytics lead",         "HR",     "2018-09-03", "$91,000", "1.0", "Berlin",    true],
+];
+
+const errorCells = {
+  3: [6],
+  7: [5],
+  10: [1, 3],
+};
+
+let revealed = false;
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  rows.forEach((row, i) => {
+    const isError = row[9];
+    const tr = document.createElement('tr');
+    if (revealed && isError) tr.classList.add('error-highlight');
+    row.slice(0, 9).forEach((cell, j) => {
+      const td = document.createElement('td');
+      const colIdx = j;
+      const highlight = revealed && errorCells[row[0]] && errorCells[row[0]].includes(colIdx);
+      td.textContent = cell;
+      if (highlight) td.classList.add('error-cell');
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleReveal() {
+  revealed = !revealed;
+  renderTable();
+  document.getElementById('answers').classList.toggle('open', revealed);
+  const btn = document.getElementById('rev-btn');
+  btn.innerHTML = revealed
+    ? '<i class="ti ti-eye-off" aria-hidden="true"></i> Hide answers'
+    : '<i class="ti ti-eye" aria-hidden="true"></i> Reveal answers';
+}
+
+renderTable();
+</script>
+</body></html>
