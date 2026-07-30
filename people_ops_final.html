@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///C:/Users/roaa.radwan/Downloads/people_ops_v4.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="file:///C:/Users/roaa.radwan/Downloads/people_ops_final_files/tabler-icons.min.css">
+<style>
+  :root {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-mono: 'Courier New', monospace;
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f4f1;
+    --color-background-tertiary: #eeece8;
+    --color-text-primary: #1a1916;
+    --color-text-secondary: #6b6860;
+    --color-text-tertiary: #9c9a94;
+    --color-border-tertiary: rgba(0,0,0,0.12);
+    --color-border-secondary: rgba(0,0,0,0.22);
+    --color-border-primary: rgba(0,0,0,0.35);
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 12px; background: #fff; font-family: var(--font-sans); }
+  .wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
+  .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
+  .toolbar-left { display: flex; align-items: center; gap: 8px; }
+  .ds-label { font-size: 12px; color: var(--color-text-tertiary); }
+  .reveal-btn { font-size: 13px; cursor: pointer; background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 14px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 6px; }
+  .reveal-btn:hover { background: var(--color-background-secondary); }
+  .table-wrap { overflow-x: auto; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--color-background-secondary); }
+  th { padding: 10px 12px; text-align: left; font-weight: 500; color: var(--color-text-secondary); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+  td { padding: 9px 12px; color: var(--color-text-primary); border-bottom: 0.5px solid var(--color-border-tertiary); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--color-background-secondary); }
+  .error-highlight td { background: #FAEEDA !important; }
+  .error-cell { color: #854F0B !important; font-weight: 500; }
+  .answers { margin-top: 1.25rem; display: none; gap: 10px; flex-direction: column; }
+  .answers.open { display: flex; }
+  .answer-card { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; font-size: 13px; display: flex; gap: 12px; align-items: flex-start; }
+  .answer-row-badge { font-size: 11px; font-weight: 500; background: #FAEEDA; color: #854F0B; border-radius: 20px; padding: 2px 10px; white-space: nowrap; margin-top: 1px; }
+  .answer-text { color: var(--color-text-secondary); line-height: 1.6; }
+  .answer-text strong { color: var(--color-text-primary); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">People operations employee data — 10 rows with hidden mistakes to spot.</h2>
+
+<div class="wrap">
+  <h2 style="font-size:20px;font-weight:600;color:#1a1916;margin-bottom:1.25rem;">People operations employee data — 10 rows with hidden mistakes to spot.</h2>
+  <div class="toolbar">
+    <span class="ds-label">10 employee records · spot the mistakes</span>
+    <button class="reveal-btn" id="rev-btn" onclick="toggleReveal()"><i class="ti ti-eye-off" aria-hidden="true"></i> Hide answers</button>
+  </div>
+
+  <div class="table-wrap">
+    <table id="emp-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Full name</th>
+          <th>Employee ID</th>
+          <th>Job title</th>
+          <th>Department</th>
+          <th>Start date</th>
+          <th>Salary (USD)</th>
+          
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"><tr class="error-highlight"><td>1</td><td class="error-cell">Ahmedد Khalil</td><td>EMP-1041</td><td>HR Business Partner</td><td>People</td><td>2019-03-11</td><td>$72,000</td><td>Cairo</td></tr><tr><td>2</td><td>Sara Mostafa</td><td>EMP-1042</td><td>Talent Acquisition Specialist</td><td>People</td><td>2021-07-01</td><td>$58,500</td><td>Cairo</td></tr><tr><td>3</td><td>James Okonkwo</td><td>EMP-1043</td><td>Compensation Analyst</td><td>People</td><td>2020-01-15</td><td>$68,000</td><td>Lagos</td></tr><tr class="error-highlight"><td>4</td><td>Lena Brandt</td><td>EMP-1044</td><td>People Analytics Lead</td><td>People</td><td>2018-09-03</td><td>$91,000</td><td>Berlin</td></tr><tr><td>5</td><td>Maria Santos</td><td>EMP-1045</td><td>L&amp;D Coordinator</td><td>People</td><td>2022-04-18</td><td>$54,000</td><td>Lisbon</td></tr><tr><td>6</td><td>Tom Nguyen</td><td>EMP-1046</td><td>HR Generalist</td><td>People</td><td>2023-11-29</td><td>$61,200</td><td>Toronto</td></tr><tr class="error-highlight"><td>7</td><td>Aisha Diallo</td><td>EMP-1047</td><td>Recruiter</td><td>People</td><td class="error-cell">2024-02-30</td><td>$55,000</td><td>Dakar</td></tr><tr><td>8</td><td>Chen Wei</td><td>EMP-1048</td><td>HRIS Analyst</td><td>People</td><td>2017-06-12</td><td>$79,000</td><td>Singapore</td></tr><tr><td>9</td><td>Fatima Al-Rashid</td><td>EMP-1049</td><td>HR Business Partner</td><td>People</td><td>2021-09-01</td><td>$74,500</td><td>Dubai</td></tr><tr class="error-highlight"><td>10</td><td class="error-cell">Lena Brandt</td><td>EMP-1050</td><td class="error-cell">People analytics lead</td><td>People</td><td>2018-09-03</td><td>$91,000</td><td>Berlin</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="answers open" id="answers">
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 1</span>
+      <span class="answer-text"><strong>Stray Arabic character in name</strong> — The name reads "Ahmedد Khalil" — there's an Arabic letter (د) between the first and last name. Invisible at a glance but breaks any exact-match lookup, deduplication, or system sync that relies on the name field.</span>
+    </div>
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 7</span>
+      <span class="answer-text"><strong>Impossible date</strong> — February 30 doesn't exist. Common when dates are typed as free text rather than selected from a date picker.</span>
+    </div>
+    <div class="answer-card">
+      <span class="answer-row-badge">Row 10</span>
+      <span class="answer-text"><strong>Duplicate + inconsistent casing</strong> — Lena Brandt appears in rows 4 and 10 with different Employee IDs. Job title casing also differs: "People Analytics Lead" vs "People analytics lead".</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const rows = [
+  [1,  "Ahmedد Khalil",   "EMP-1041", "HR Business Partner",           "People", "2019-03-11", "$72,000", "Cairo",     true],
+  [2,  "Sara Mostafa",     "EMP-1042", "Talent Acquisition Specialist", "People", "2021-07-01", "$58,500", "Cairo",     false],
+  [3,  "James Okonkwo",    "EMP-1043", "Compensation Analyst",          "People", "2020-01-15", "$68,000", "Lagos",     false],
+  [4,  "Lena Brandt",      "EMP-1044", "People Analytics Lead",         "People", "2018-09-03", "$91,000", "Berlin",    true],
+  [5,  "Maria Santos",     "EMP-1045", "L&D Coordinator",               "People", "2022-04-18", "$54,000", "Lisbon",    false],
+  [6,  "Tom Nguyen",       "EMP-1046", "HR Generalist",                 "People", "2023-11-29", "$61,200", "Toronto",   false],
+  [7,  "Aisha Diallo",     "EMP-1047", "Recruiter",                     "People", "2024-02-30", "$55,000", "Dakar",     true],
+  [8,  "Chen Wei",         "EMP-1048", "HRIS Analyst",                  "People", "2017-06-12", "$79,000", "Singapore", false],
+  [9,  "Fatima Al-Rashid", "EMP-1049", "HR Business Partner",           "People", "2021-09-01", "$74,500", "Dubai",     false],
+  [10, "Lena Brandt",      "EMP-1050", "People analytics lead",         "People", "2018-09-03", "$91,000", "Berlin",    true],
+];
+
+const errorCells = {
+  1:  [1],
+  7:  [5],
+  10: [1, 3],
+};
+
+let revealed = false;
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  rows.forEach(row => {
+    const isError = row[8];
+    const tr = document.createElement('tr');
+    if (isError) tr.classList.add('error-highlight');
+    row.slice(0, 8).forEach((cell, j) => {
+      const td = document.createElement('td');
+      td.textContent = cell;
+      if (revealed && errorCells[row[0]] && errorCells[row[0]].includes(j)) td.classList.add('error-cell');
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleReveal() {
+  revealed = !revealed;
+  renderTable();
+  document.getElementById('answers').classList.toggle('open', revealed);
+  const btn = document.getElementById('rev-btn');
+  btn.innerHTML = revealed
+    ? '<i class="ti ti-eye-off" aria-hidden="true"></i> Hide answers'
+    : '<i class="ti ti-eye" aria-hidden="true"></i> Reveal answers';
+}
+
+renderTable();
+</script>
+
+
+</body></html>
